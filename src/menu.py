@@ -6,7 +6,6 @@ import src.data_sources as data_sources
 
 
 def page():
-
     # CSS style definitions
     custom_css = f"""
     <style>
@@ -61,7 +60,6 @@ def page():
     # Use the CSS in Streamlit
     st.markdown(custom_css, unsafe_allow_html=True)
 
-
     with st.sidebar:
         # CSS style definitions
         company_name = config('COMPANY_NAME') + " Q"
@@ -69,12 +67,12 @@ def page():
                                     icons=['search', 'database-add', "gear"],
                                     menu_icon="cast", default_index=0, orientation="vertical",
                                     styles={
-                                            "container": {"padding": "0!important", "background-color": "#fafafa"},
-                                            "icon": {"color": "orange", "font-size": "25px"},
-                                            "nav-link": {"font-size": "25px", "text-align": "left", "margin": "0px",
-                                                         "--hover-color": "#eee"},
-                                            "nav-link-selected": {"background-color": "gray"},
-                                        }
+                                        "container": {"padding": "0!important", "background-color": "#fafafa"},
+                                        "icon": {"color": "orange", "font-size": "25px"},
+                                        "nav-link": {"font-size": "25px", "text-align": "left", "margin": "0px",
+                                                     "--hover-color": "#eee"},
+                                        "nav-link-selected": {"background-color": "gray"},
+                                    }
                                     )
     if menu_selected == company_name:
         return search_q.main()
@@ -84,5 +82,6 @@ def page():
         return st.write("Settings")
     else:
         return st.write("Error")
+
 
 1
