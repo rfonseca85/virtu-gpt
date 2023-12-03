@@ -18,7 +18,7 @@ COPY . .
 RUN pip3 install -r requirements.txt
 RUN pip3 install llama-cpp-python chroma-hnswlib
 
-# Run Chat.py when the container launches
+# Run app.py when the container launches
 EXPOSE 8501
 
 ENTRYPOINT ["streamlit", "run", "Chat.py", "--server.port=8501", "--server.address=0.0.0.0"]
