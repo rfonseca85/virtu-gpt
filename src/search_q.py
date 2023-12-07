@@ -82,7 +82,7 @@ def main():
 
         # Start the response time
         start_time = time.time()
-
+        
         with st.spinner('Wait for it'):
             response = qa(prompt)
             msg = response["result"]
@@ -99,4 +99,3 @@ def main():
                     source_documents_exapander.caption(f"**Document {i}: {document.metadata['source']}**")
                     source_documents_exapander.caption("**Content:**\n" + document.page_content)
                 chat.caption("Search took - {:.2f} seconds".format(end_time - start_time))
-
