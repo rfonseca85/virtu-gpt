@@ -14,3 +14,4 @@ pypdf
 streamlit
 streamlit-extras
 python-decouple
+streamlit_option_menu

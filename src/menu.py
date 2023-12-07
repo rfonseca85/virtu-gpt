@@ -4,8 +4,8 @@ from decouple import config
 import src.search_q as search_q
 import src.data_sources as data_sources
 
-
 def page():
+
     # CSS style definitions
     custom_css = f"""
     <style>
@@ -38,9 +38,9 @@ def page():
             width: 95%;
         }}
         
-        .st-emotion-cache-vk3wp9 {{
-            background-color: white;
-        }}
+        # .st-emotion-cache-vk3wp9 {{
+        #     background-color: white;
+        # }}
         
         .st-emotion-cache-ztfqz8 {{
             visibility: hidden;
@@ -67,7 +67,7 @@ def page():
 
     with st.sidebar:
         # CSS style definitions
-        company_name = config('COMPANY_NAME') + " Q"
+        company_name = config('COMPANY_NAME')
         menu_selected = option_menu(None, [company_name, "Data Sources", 'Settings'],
                                     icons=['search', 'database-add', "gear"],
                                     menu_icon="cast", default_index=0, orientation="vertical",

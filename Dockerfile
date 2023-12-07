@@ -21,11 +21,15 @@ RUN pip3 install llama-cpp-python chroma-hnswlib
 # Run app.py when the container launches
 EXPOSE 8501
 
-ENTRYPOINT ["streamlit", "run", "Chat.py", "--server.port=8501", "--server.address=0.0.0.0"]
-
-#docker build -t virtu_gpt .
-#docker run -p 8501:8501 virtu_gpt
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
 
 
+# docker run -p 8501:8501 virtu_gpt
+# docker run -p 8501:80 -d -v source_documents:/usr/src/app/source_documents virtu_gpt
+
+# docker build -t virtu_gpt .
+# docker volume models
+# docker volume source_documents
+# docker run -d -v models:/usr/src/app/models -v source_documents:/usr/src/app/source_documents virtu_gpt
 
 
