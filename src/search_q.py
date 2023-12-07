@@ -66,47 +66,36 @@ def main():
         global show_source
         show_source = st.checkbox("Show source documents", value=True)
 
-    st.title("💬 " + config('COMPANY_NAME') + " Q")
-    st.caption("🚀 A streamlit chatbot powered by Virtu.GPT")
+    st.title("💬 " + config('COMPANY_NAME'))
+    st.caption("🚀 A streamlit AI powered by Virtu.GPT")
 
     if "messages" not in st.session_state:
         st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
     for msg in st.session_state.messages:
-        st.chat_message(msg["role"]).write(msg["content"])
+        avatar_image = "USER_AVATAR" if msg["role"] == "user" else "COMPANY_AVATAR"
+        st.chat_message(msg["role"], avatar=config(avatar_image)).write(msg["content"])
 
     if prompt := st.chat_input(placeholder="Your question?", key="article_q"):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
+        st.chat_message("user", avatar=config('USER_AVATAR')).write(prompt)
 
         # Start the response time
         start_time = time.time()
-
-        with st.spinner('Wait for it...'):
+        
+        with st.spinner('Wait for it'):
             response = qa(prompt)
             msg = response["result"]
             st.session_state.messages.append({"role": "assistant", "content": msg})
-            st.chat_message("assistant").write(msg)
-
-            # Start the response time
             end_time = time.time()
 
+            # Start the response time
+            chat = st.chat_message("assistant", avatar=config('COMPANY_AVATAR'))
+            chat.write(msg)
+
             if show_source:
-                with stylable_container(
-                        key="container_with_border1",
-                        css_styles="""
-                            {
-                                border: 2px solid rgba(49, 51, 63, 0.2);
-                                border-radius: 0.5rem;
-                                padding: calc(1em - 1px);
-                                background-color: #F0F0F0;
-                            }
-                            .stMarkdown {
-                                color: #000000;
-                            }
-                            """,
-                ):
-                    st.caption("Search took - {:.2f} seconds".format(end_time - start_time))
-                    for i, document in enumerate(response['source_documents'], start=0):
-                        st.caption(f"**Document {i}: {document.metadata['source']}**")
-                        st.caption("**Content:**\n" + document.page_content)
+                source_documents_exapander = chat.expander("Source documents", expanded=False)
+                for i, document in enumerate(response['source_documents'], start=0):
+                    source_documents_exapander.caption(f"**Document {i}: {document.metadata['source']}**")
+                    source_documents_exapander.caption("**Content:**\n" + document.page_content)
+                chat.caption("Search took - {:.2f} seconds".format(end_time - start_time))
