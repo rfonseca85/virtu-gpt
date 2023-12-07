@@ -30,6 +30,6 @@ ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.addres
 # docker build -t virtu_gpt .
 # docker volume models
 # docker volume source_documents
-# docker run -d -v models:/usr/src/app/models -v source_documents:/usr/src/app/source_documents virtu_gpt
+# docker run -p 8501:8501 -d -v models:/usr/src/app/models -v source_documents:/usr/src/app/source_documents virtu_gpt
 
 
